@@ -78,11 +78,6 @@ class CheckboxColumn extends Column {
     public $urlCreator;
 
     /**
-     * @var callback a callback that check access of that button creation.     *
-     */
-    public $checkaccess;
-
-    /**
      * @inheritdoc
      * @throws \yii\base\InvalidConfigException if [[name]] is not set.
      */
@@ -95,12 +90,6 @@ class CheckboxColumn extends Column {
             $this->name .= '[]';
         }
         $this->initDefaultButtons();
-
-        if (!$this->checkaccess) {
-            $this->checkaccess = function ($url) {
-                return true;
-            };
-        }
     }
 
     /**
@@ -180,33 +169,35 @@ class CheckboxColumn extends Column {
         if ($this->header !== null || !$this->multiple) {
             return parent::renderHeaderCellContent();
         } else {
-            $content = Html::tag('button', Html::checkBox($name, false, ['class'          => 'select-on-check-all',
-                                                                         'data-target'    => $this->name,
-                                                                         'data-checkall'  => 1,
-                                                                         'data-parent-id' => $id]).' <span class="caret"></span>', [
-                'type'        => 'button',
-                'class'       => 'btn btn-default dropdown-toggle',
-                'data-toggle' => 'dropdown',
-            ]);
+            $content = Html::tag('button',
+                Html::checkBox($name, false,
+                    [
+                        'class'          => 'select-on-check-all',
+                        'data-target'    => $this->name,
+                        'data-checkall'  => 1,
+                        'data-parent-id' => $id
+                    ]
+                ).' <span class="caret"></span>',
+                [
+                    'type'        => 'button',
+                    'class'       => 'btn btn-default dropdown-toggle',
+                    'data-toggle' => 'dropdown',
+                ]
+            );
 
             $buttons = preg_replace_callback('/\\{([\w\-\/]+)\\}/', function ($matches) use ($model, $key, $index) {
                 $name   = $matches[1];
                 $module = \Yii::$app->user->can(\Yii::$app->controller->module->id.'/'.\Yii::$app->controller->id.'/'.$name);
                 if ($module) {
                     if (isset($this->buttons[$name])) {
-                        $url = $this->createUrl($name, $model, $key, $index);
-                        if (call_user_func($this->checkaccess, $url)) {
-                            return call_user_func($this->buttons[$name], $url, $model);
-                        } else {
-                            return '';
-                        }
+                        return $this->createUrl($name, $model, $key, $index);
                     } else {
                         return '';
                     }
                 }
             }, $this->template);
 
-            if ($buttons == '') {
+            if ($buttons === '') {
                 return $buttons;
             }
             $content .= Html::tag('ul', $buttons, [
