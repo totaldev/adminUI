@@ -39,7 +39,7 @@ class AdminUiBootstrap implements BootstrapInterface {
                 ],
                 'yii\grid\GridViewAsset'      => [
                     'depends' => [
-                        'app\assets\AppAsset'
+                        'backend\assets\AppAsset'
                     ],
                 ],
             ],
