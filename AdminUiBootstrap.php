@@ -45,14 +45,5 @@ class AdminUiBootstrap implements BootstrapInterface {
             ],
             'linkAssets' => true,
         ]);
-
-        Event::on(Controller::className(), Controller::EVENT_BEFORE_ACTION, function ($event) {
-            if (
-                in_array($event->action->id, ['login', 'forgot', 'reset-password'])
-                && in_array('backend', explode("\\", $event->sender->className()))
-            ) {
-                $event->sender->layout = '//blank';
-            }
-        });
     }
 }
