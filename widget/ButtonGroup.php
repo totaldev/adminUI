@@ -1,20 +1,19 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link      http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license   http://www.yiiframework.com/license/
  */
 
 namespace yii\adminUi\widget;
+
 use yii\adminUi\assetsBundle\AdminUiAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
  * ButtonGroup renders a button group bootstrap component.
- *
  * For example,
- *
  * ```php
  * // a button group with items configuration
  * echo ButtonGroup::widget([
@@ -23,7 +22,6 @@ use yii\helpers\Html;
  *         ['label' => 'B'],
  *     ]
  * ]);
- *
  * // button group with an item as a string
  * echo ButtonGroup::widget([
  *     'buttons' => [
@@ -32,18 +30,17 @@ use yii\helpers\Html;
  *     ]
  * ]);
  * ```
- * @see http://getbootstrap.com/javascript/#buttons
- * @see http://getbootstrap.com/components/#btn-groups
+ * @see    http://getbootstrap.com/javascript/#buttons
+ * @see    http://getbootstrap.com/components/#btn-groups
  * @author Antonio Ramirez <amigo.cobos@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
-class ButtonGroup extends Widget
-{
+class ButtonGroup extends Widget {
     const HORIZONTAL = 1;
     const VERTICLE = 2;
-    
+
     const DEFAULT_ORIENTATION = 1;
-        
+
     /**
      * @var string the button label.
      */
@@ -51,7 +48,6 @@ class ButtonGroup extends Widget
     /**
      * @var array list of buttons. Each array element represents a single button
      * which can be specified as a string or an array of the following structure:
-     *
      * - label: string, required, the button label.
      * - options: array, optional, the HTML attributes of the button.
      */
@@ -65,21 +61,19 @@ class ButtonGroup extends Widget
      * Initializes the widget.
      * If you override this method, make sure you call the parent implementation first.
      */
-    public function init()
-    {
+    public function init() {
         parent::init();
-        if($this->orientation == self::VERTICLE){
+        if ($this->orientation == self::VERTICLE) {
             Html::addCssClass($this->options, 'btn-group-vertical');
-        }else{
+        } else {
             Html::addCssClass($this->options, 'btn-group');
-        }        
+        }
     }
 
     /**
      * Renders the widget.
      */
-    public function run()
-    {
+    public function run() {
         echo Html::tag('div', $this->renderButtons(), $this->options);
         AdminUiAsset::register($this->getView());
     }
@@ -88,24 +82,23 @@ class ButtonGroup extends Widget
      * Generates the buttons that compound the group as specified on [[buttons]].
      * @return string the rendering result.
      */
-    protected function renderButtons()
-    {
+    protected function renderButtons() {
         $buttons = [];
         foreach ($this->buttons as $button) {
             if (is_array($button)) {
-                if(isset($button['dropdown'])){
-                    $option = array_merge($button['dropdown'], [
+                if (isset($button['dropdown'])) {
+                    $option    = array_merge($button['dropdown'], [
                         'view' => $this->getView()
                     ]);
                     $buttons[] = ButtonDropdown::widget($option);
-                }else{
-                    $label = ArrayHelper::getValue($button, 'label');
-                    $options = ArrayHelper::getValue($button, 'options');
+                } else {
+                    $label     = ArrayHelper::getValue($button, 'label');
+                    $options   = ArrayHelper::getValue($button, 'options');
                     $buttons[] = Button::widget([
-                        'label' => $label,
-                        'options' => $options,
+                        'label'       => $label,
+                        'options'     => $options,
                         'encodeLabel' => $this->encodeLabels,
-                        'view' => $this->getView()
+                        'view'        => $this->getView()
                     ]);
                 }
             } else {

@@ -8,66 +8,71 @@ $this->title = 'Dashboard';
 //$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 Row::begin();
-   echo  SmallBox::widget([
-        'header' => 150,
-        'Icon'  => 'ion ion-bag',
-        'caption' => 'New Orders',
-        'url'       => '#',
-    ]);
-   echo  SmallBox::widget([
-        'header' => '53<sup style="font-size: 20px">%</sup>',
-        'Icon'  => 'ion ion-stats-bars',
-        'caption' => 'Bounce Rate',
-        'url'       => '#',
-       'color'      =>'bg-green'
-    ]);
-   
-   echo  SmallBox::widget([
-        'header' => 44,
-        'Icon'  => 'ion ion-person-add',
-        'caption' => 'User Registrations',
-        'url'       => '#',
-       'color'      =>'bg-yellow'
-    ]);
-   
-   echo  SmallBox::widget([
-        'header' => 65,
-        'Icon'  => 'ion ion-pie-graph',
-        'caption' => 'Unique Visitors',
-        'url'       => '#',
-       'color'      =>'bg-red'
-    ]);
-   
+echo SmallBox::widget([
+    'header'  => 150,
+    'Icon'    => 'ion ion-bag',
+    'caption' => 'New Orders',
+    'url'     => '#',
+]);
+echo SmallBox::widget([
+    'header'  => '53<sup style="font-size: 20px">%</sup>',
+    'Icon'    => 'ion ion-stats-bars',
+    'caption' => 'Bounce Rate',
+    'url'     => '#',
+    'color'   => 'bg-green'
+]);
+
+echo SmallBox::widget([
+    'header'  => 44,
+    'Icon'    => 'ion ion-person-add',
+    'caption' => 'User Registrations',
+    'url'     => '#',
+    'color'   => 'bg-yellow'
+]);
+
+echo SmallBox::widget([
+    'header'  => 65,
+    'Icon'    => 'ion ion-pie-graph',
+    'caption' => 'Unique Visitors',
+    'url'     => '#',
+    'color'   => 'bg-red'
+]);
+
 Row::end();
 Row::begin();
-    Column::begin(['grid'=> [
-                                [
-                                    'type'=>Column::TYPE_MOBILE,
-                                    'size' => Column::SIZE_FULL,
-                                ],
-                            ],
-                   'options' => ['class'=>'connectedSortable']
-		]);
-    Column::end();
+Column::begin(['grid'    => [
+    [
+        'type' => Column::TYPE_MOBILE,
+        'size' => Column::SIZE_FULL,
+    ],
+],
+               'options' => ['class' => 'connectedSortable']
+]);
+Column::end();
 Row::end();
 ?>
 <!-- Main row -->
 <div class="row">
     <!-- Left col -->
-    <section class="col-lg-6 connectedSortable"> 
+    <section class="col-lg-6 connectedSortable">
         <!-- Box (with bar chart) -->
         <div class="box box-danger" id="loading-example">
             <div class="box-header">
                 <!-- tools box -->
                 <div class="pull-right box-tools">
-                    <button class="btn btn-danger btn-sm refresh-btn" data-toggle="tooltip" title="Reload"><i class="fa fa-refresh"></i></button>
-                    <button class="btn btn-danger btn-sm" data-widget='collapse' data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-                    <button class="btn btn-danger btn-sm" data-widget='remove' data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-                </div><!-- /. tools -->
+                    <button class="btn btn-danger btn-sm refresh-btn" data-toggle="tooltip" title="Reload"><i
+                            class="fa fa-refresh"></i></button>
+                    <button class="btn btn-danger btn-sm" data-widget='collapse' data-toggle="tooltip" title="Collapse">
+                        <i class="fa fa-minus"></i></button>
+                    <button class="btn btn-danger btn-sm" data-widget='remove' data-toggle="tooltip" title="Remove"><i
+                            class="fa fa-times"></i></button>
+                </div>
+                <!-- /. tools -->
                 <i class="fa fa-cloud"></i>
 
                 <h3 class="box-title">Server Load</h3>
-            </div><!-- /.box-header -->
+            </div>
+            <!-- /.box-header -->
             <div class="box-body no-padding">
                 <div class="row">
                     <div class="col-sm-7">
@@ -110,29 +115,46 @@ Row::end();
                             </div>
                             <!-- Buttons -->
                             <p>
-                                <button class="btn btn-default btn-sm"><i class="fa fa-cloud-download"></i> Generate PDF</button>
+                                <button class="btn btn-default btn-sm"><i class="fa fa-cloud-download"></i> Generate PDF
+                                </button>
                             </p>
-                        </div><!-- /.pad -->
-                    </div><!-- /.col -->
-                </div><!-- /.row - inside box -->
-            </div><!-- /.box-body -->
+                        </div>
+                        <!-- /.pad -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row - inside box -->
+            </div>
+            <!-- /.box-body -->
             <div class="box-footer">
                 <div class="row">
                     <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                        <input type="text" class="knob" data-readonly="true" value="80" data-width="60" data-height="60" data-fgColor="#f56954"/>
+                        <input type="text" class="knob" data-readonly="true" value="80" data-width="60" data-height="60"
+                               data-fgColor="#f56954"/>
+
                         <div class="knob-label">CPU</div>
-                    </div><!-- ./col -->
+                    </div>
+                    <!-- ./col -->
                     <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                        <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60" data-fgColor="#00a65a"/>
+                        <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
+                               data-fgColor="#00a65a"/>
+
                         <div class="knob-label">Disk</div>
-                    </div><!-- ./col -->
+                    </div>
+                    <!-- ./col -->
                     <div class="col-xs-4 text-center">
-                        <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60" data-fgColor="#3c8dbc"/>
+                        <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
+                               data-fgColor="#3c8dbc"/>
+
                         <div class="knob-label">RAM</div>
-                    </div><!-- ./col -->
-                </div><!-- /.row -->
-            </div><!-- /.box-footer -->
-        </div><!-- /.box -->        
+                    </div>
+                    <!-- ./col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.box-footer -->
+        </div>
+        <!-- /.box -->
 
         <!-- Custom tabs (Charts with tabs)-->
         <div class="nav-tabs-custom">
@@ -147,19 +169,22 @@ Row::end();
                 <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;"></div>
                 <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
             </div>
-        </div><!-- /.nav-tabs-custom -->
+        </div>
+        <!-- /.nav-tabs-custom -->
 
         <!-- Calendar -->
         <div class="box box-warning">
             <div class="box-header">
                 <i class="fa fa-calendar"></i>
+
                 <div class="box-title">Calendar</div>
 
                 <!-- tools box -->
                 <div class="pull-right box-tools">
                     <!-- button with a dropdown -->
                     <div class="btn-group">
-                        <button class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></button>
+                        <button class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown"><i
+                                class="fa fa-bars"></i></button>
                         <ul class="dropdown-menu pull-right" role="menu">
                             <li><a href="#">Add new event</a></li>
                             <li><a href="#">Clear events</a></li>
@@ -167,23 +192,30 @@ Row::end();
                             <li><a href="#">View calendar</a></li>
                         </ul>
                     </div>
-                </div><!-- /. tools -->                                    
-            </div><!-- /.box-header -->
+                </div>
+                <!-- /. tools -->
+            </div>
+            <!-- /.box-header -->
             <div class="box-body no-padding">
                 <!--The calendar -->
                 <div id="calendar"></div>
-            </div><!-- /.box-body -->
-        </div><!-- /.box -->
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
 
         <!-- quick email widget -->
         <div class="box box-info">
             <div class="box-header">
                 <i class="fa fa-envelope"></i>
+
                 <h3 class="box-title">Quick Email</h3>
                 <!-- tools box -->
                 <div class="pull-right box-tools">
-                    <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-                </div><!-- /. tools -->
+                    <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i
+                            class="fa fa-times"></i></button>
+                </div>
+                <!-- /. tools -->
             </div>
             <div class="box-body">
                 <form action="#" method="post">
@@ -194,28 +226,35 @@ Row::end();
                         <input type="text" class="form-control" name="subject" placeholder="Subject"/>
                     </div>
                     <div>
-                        <textarea class="textarea" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        <textarea class="textarea" placeholder="Message"
+                                  style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                     </div>
                 </form>
             </div>
             <div class="box-footer clearfix">
-                <button class="pull-right btn btn-default" id="sendEmail">Send <i class="fa fa-arrow-circle-right"></i></button>
+                <button class="pull-right btn btn-default" id="sendEmail">Send <i class="fa fa-arrow-circle-right"></i>
+                </button>
             </div>
         </div>
 
-    </section><!-- /.Left col -->
+    </section>
+    <!-- /.Left col -->
     <!-- right col (We are only adding the ID to make the widgets sortable)-->
     <section class="col-lg-6 connectedSortable">
         <!-- Map box -->
         <div class="box box-primary">
             <div class="box-header">
                 <!-- tools box -->
-                <div class="pull-right box-tools">                                        
-                    <button class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip" title="Date range"><i class="fa fa-calendar"></i></button>
-                    <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
-                </div><!-- /. tools -->
+                <div class="pull-right box-tools">
+                    <button class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip"
+                            title="Date range"><i class="fa fa-calendar"></i></button>
+                    <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip"
+                            title="Collapse" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
+                </div>
+                <!-- /. tools -->
 
                 <i class="fa fa-map-marker"></i>
+
                 <h3 class="box-title">
                     Visitors
                 </h3>
@@ -233,43 +272,57 @@ Row::end();
                         </tr>
                         <tr>
                             <td><a href="#">USA</a></td>
-                            <td><div id="sparkline-1"></div></td>
+                            <td>
+                                <div id="sparkline-1"></div>
+                            </td>
                             <td>209</td>
                             <td>239</td>
                         </tr>
                         <tr>
                             <td><a href="#">India</a></td>
-                            <td><div id="sparkline-2"></div></td>
+                            <td>
+                                <div id="sparkline-2"></div>
+                            </td>
                             <td>131</td>
                             <td>958</td>
                         </tr>
                         <tr>
                             <td><a href="#">Britain</a></td>
-                            <td><div id="sparkline-3"></div></td>
+                            <td>
+                                <div id="sparkline-3"></div>
+                            </td>
                             <td>19</td>
                             <td>417</td>
                         </tr>
                         <tr>
                             <td><a href="#">Brazil</a></td>
-                            <td><div id="sparkline-4"></div></td>
+                            <td>
+                                <div id="sparkline-4"></div>
+                            </td>
                             <td>109</td>
                             <td>476</td>
                         </tr>
                         <tr>
                             <td><a href="#">China</a></td>
-                            <td><div id="sparkline-5"></div></td>
+                            <td>
+                                <div id="sparkline-5"></div>
+                            </td>
                             <td>192</td>
                             <td>437</td>
                         </tr>
                         <tr>
                             <td><a href="#">Australia</a></td>
-                            <td><div id="sparkline-6"></div></td>
+                            <td>
+                                <div id="sparkline-6"></div>
+                            </td>
                             <td>1709</td>
                             <td>947</td>
                         </tr>
-                    </table><!-- /.table -->
+                    </table>
+                    <!-- /.table -->
                 </div>
-            </div><!-- /.box-body-->
+            </div>
+            <!-- /.box-body-->
             <div class="box-footer">
                 <button class="btn btn-info"><i class="fa fa-download"></i> Generate PDF</button>
                 <button class="btn btn-warning"><i class="fa fa-bug"></i> Report Bug</button>
@@ -281,10 +334,13 @@ Row::end();
         <div class="box box-success">
             <div class="box-header">
                 <h3 class="box-title"><i class="fa fa-comments-o"></i> Chat</h3>
+
                 <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
-                    <div class="btn-group" data-toggle="btn-toggle" >
-                        <button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i></button>                                            
-                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-red"></i></button>
+                    <div class="btn-group" data-toggle="btn-toggle">
+                        <button type="button" class="btn btn-default btn-sm active"><i
+                                class="fa fa-square text-green"></i></button>
+                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-red"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -292,6 +348,7 @@ Row::end();
                 <!-- chat item -->
                 <div class="item">
                     <img src="img/avatar.png" alt="user image" class="online"/>
+
                     <p class="message">
                         <a href="#" class="name">
                             <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 2:15</small>
@@ -303,17 +360,22 @@ Row::end();
                     </p>
                     <div class="attachment">
                         <h4>Attachments:</h4>
+
                         <p class="filename">
                             Theme-thumbnail-image.jpg
                         </p>
+
                         <div class="pull-right">
                             <button class="btn btn-primary btn-sm btn-flat">Open</button>
                         </div>
-                    </div><!-- /.attachment -->
-                </div><!-- /.item -->
+                    </div>
+                    <!-- /.attachment -->
+                </div>
+                <!-- /.item -->
                 <!-- chat item -->
                 <div class="item">
                     <img src="img/avatar2.png" alt="user image" class="offline"/>
+
                     <p class="message">
                         <a href="#" class="name">
                             <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 5:15</small>
@@ -323,10 +385,12 @@ Row::end();
                         the arrival of the new theme. They say it is going to be one the
                         best themes on the market
                     </p>
-                </div><!-- /.item -->
+                </div>
+                <!-- /.item -->
                 <!-- chat item -->
                 <div class="item">
                     <img src="img/avatar3.png" alt="user image" class="offline"/>
+
                     <p class="message">
                         <a href="#" class="name">
                             <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 5:30</small>
@@ -336,23 +400,29 @@ Row::end();
                         the arrival of the new theme. They say it is going to be one the
                         best themes on the market
                     </p>
-                </div><!-- /.item -->
-            </div><!-- /.chat -->
+                </div>
+                <!-- /.item -->
+            </div>
+            <!-- /.chat -->
             <div class="box-footer">
                 <div class="input-group">
                     <input class="form-control" placeholder="Type message..."/>
+
                     <div class="input-group-btn">
                         <button class="btn btn-success"><i class="fa fa-plus"></i></button>
                     </div>
                 </div>
             </div>
-        </div><!-- /.box (chat box) -->
+        </div>
+        <!-- /.box (chat box) -->
 
         <!-- TO DO List -->
         <div class="box box-primary">
             <div class="box-header">
                 <i class="ion ion-clipboard"></i>
+
                 <h3 class="box-title">To Do List</h3>
+
                 <div class="box-tools pull-right">
                     <ul class="pagination pagination-sm inline">
                         <li><a href="#">&laquo;</a></li>
@@ -362,7 +432,8 @@ Row::end();
                         <li><a href="#">&raquo;</a></li>
                     </ul>
                 </div>
-            </div><!-- /.box-header -->
+            </div>
+            <!-- /.box-header -->
             <div class="box-body">
                 <ul class="todo-list">
                     <li>
@@ -370,9 +441,9 @@ Row::end();
                         <span class="handle">
                             <i class="fa fa-ellipsis-v"></i>
                             <i class="fa fa-ellipsis-v"></i>
-                        </span>  
+                        </span>
                         <!-- checkbox -->
-                        <input type="checkbox" value="" name=""/>                                            
+                        <input type="checkbox" value="" name=""/>
                         <!-- todo text -->
                         <span class="text">Design a nice theme</span>
                         <!-- Emphasis label -->
@@ -387,7 +458,7 @@ Row::end();
                         <span class="handle">
                             <i class="fa fa-ellipsis-v"></i>
                             <i class="fa fa-ellipsis-v"></i>
-                        </span>                                            
+                        </span>
                         <input type="checkbox" value="" name=""/>
                         <span class="text">Make the theme responsive</span>
                         <small class="label label-info"><i class="fa fa-clock-o"></i> 4 hours</small>
@@ -449,11 +520,14 @@ Row::end();
                         </div>
                     </li>
                 </ul>
-            </div><!-- /.box-body -->
+            </div>
+            <!-- /.box-body -->
             <div class="box-footer clearfix no-border">
                 <button class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
             </div>
-        </div><!-- /.box -->
+        </div>
+        <!-- /.box -->
 
-    </section><!-- right col -->
+    </section>
+    <!-- right col -->
 </div><!-- /.row (main row) -->

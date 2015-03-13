@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link      http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license   http://www.yiiframework.com/license/
  */
 
 namespace yii\adminUi\widget;
@@ -14,15 +14,12 @@ use yii\helpers\Html;
 
 /**
  * Header renders a Header HTML component.
- *
  * Any content enclosed between the [[begin()]] and [[end()]] calls of NavBar
  * is treated as the content of the navbar. You may use widgets such as [[Nav]]
  * or [[\yii\widgets\Menu]] to build up such content. For example,
- *
  * ```php
  * use yii\bootstrap\NavBar;
  * use yii\widgets\Menu;
- *
  * NavBar::begin(['brandLabel' => 'NavBar Test']);
  * echo Nav::widget([
  *     'items' => [
@@ -32,27 +29,21 @@ use yii\helpers\Html;
  * ]);
  * NavBar::end();
  * ```
- *
- * @see http://getbootstrap.com/components/#navbar
+ * @see    http://getbootstrap.com/components/#navbar
  * @author Antonio Ramirez <amigo.cobos@gmail.com>
  * @author Alexander Kochetov <creocoder@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
-class Header extends Widget
-{
+class Header extends Widget {
     /**
      * @var array the HTML attributes for the widget container tag. The following special options are recognized:
-     *
      * - tag: string, defaults to "nav", the name of the container tag.
-     *
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
     public $options = [];
     /**
      * @var array the HTML attributes for the container tag. The following special options are recognized:
-     *
      * - tag: string, defaults to "div", the name of the container tag.
-     *
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
     public $containerOptions = [];
@@ -62,8 +53,10 @@ class Header extends Widget
      */
     public $brandLabel;
     /**
-     * @param array|string $url the URL for the brand's hyperlink tag. This parameter will be processed by [[Url::to()]]
-     * and will be used for the "href" attribute of the brand link. If not set, [[\yii\web\Application::homeUrl]] will be used.
+     * @param array|string $url the URL for the brand's hyperlink tag. This parameter will be processed by
+     *                          [[Url::to()]]
+     *                          and will be used for the "href" attribute of the brand link. If not set,
+     *                          [[\yii\web\Application::homeUrl]] will be used.
      */
     public $brandUrl;
     /**
@@ -89,13 +82,12 @@ class Header extends Widget
     /**
      * Initializes the widget.
      */
-    public function init()
-    {
+    public function init() {
         parent::init();
-        $this->clientOptions = false;        
-        
+        $this->clientOptions = false;
+
         $options = $this->options;
-        $tag = ArrayHelper::remove($options, 'tag', 'nav');
+        $tag     = ArrayHelper::remove($options, 'tag', 'nav');
         echo Html::beginTag($tag, $options);
         if ($this->brandLabel !== null) {
             Html::addCssClass($this->brandOptions, 'logo');
@@ -106,8 +98,7 @@ class Header extends Widget
     /**
      * Renders the widget.
      */
-    public function run()
-    {        
+    public function run() {
         $tag = ArrayHelper::remove($this->options, 'tag', 'nav');
         echo Html::endTag($tag);
         AdminUiAsset::register($this->getView());

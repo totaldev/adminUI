@@ -5,18 +5,18 @@ namespace yii\adminUi\assetsBundle;
 use yii\web\AssetBundle;
 
 
-class AdminUIMultiselect extends AssetBundle
-{
+class AdminUIMultiselect extends AssetBundle {
     public $sourcePath = '@vendor/adminUi/assets/';
-    public $css = [                
+    public $css = [
         'css/multiselect/jquery.asmselect.css',
     ];
-    public $js  = [        
+    public $js = [
         'js/plugins/multiselect/jquery.asmselect.js',
-    ];  
+    ];
     public $depends = [
         'yii\adminUi\assetsBundle\AdminUiAsset',
-        'yii\adminUi\assetsBundle\JqueryUI',        
+        'yii\adminUi\assetsBundle\JqueryUI',
     ];
 }
+
 ?>

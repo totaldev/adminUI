@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link      http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license   http://www.yiiframework.com/license/
  */
 
 namespace yii\adminUi\widget;
@@ -15,9 +15,7 @@ use yii\helpers\Html;
 
 /**
  * Nav renders a nav HTML component.
- *
  * For example:
- *
  * ```php
  * echo Nav::widget([
  *     'items' => [
@@ -38,21 +36,16 @@ use yii\helpers\Html;
  *     ],
  * ]);
  * ```
- *
  * Note: Multilevel dropdowns beyond Level 1 are not supported in Bootstrap 3.
- *
- * @see http://getbootstrap.com/components/#dropdowns
- * @see http://getbootstrap.com/components/#nav
- *
+ * @see    http://getbootstrap.com/components/#dropdowns
+ * @see    http://getbootstrap.com/components/#nav
  * @author Antonio Ramirez <amigo.cobos@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
-class Nav extends Widget
-{
+class Nav extends Widget {
     /**
      * @var array list of items in the nav widget. Each array element represents a single
      * menu item which can be either a string or an array with the following structure:
-     *
      * - label: string, required, the nav item label.
      * - url: optional, the item's URL. Defaults to "#".
      * - visible: boolean, optional, whether this menu item is visible. Defaults to true.
@@ -61,7 +54,6 @@ class Nav extends Widget
      * - active: boolean, optional, whether the item should be on active state or not.
      * - items: array|string, optional, the configuration array for creating a [[Dropdown]] widget,
      *   or a string representing the dropdown menu. Note that Bootstrap does not support sub-dropdown menus.
-     *
      * If a menu item is a string, it will be rendered directly without HTML encoding.
      */
     public $items = [];
@@ -97,8 +89,7 @@ class Nav extends Widget
     /**
      * Initializes the widget.
      */
-    public function init()
-    {
+    public function init() {
         parent::init();
         if ($this->route === null && Yii::$app->controller !== null) {
             $this->route = Yii::$app->controller->getRoute();
@@ -112,8 +103,7 @@ class Nav extends Widget
     /**
      * Renders the widget.
      */
-    public function run()
-    {
+    public function run() {
         echo $this->renderItems();
         AdminUiAsset::register($this->getView());
     }
@@ -121,8 +111,7 @@ class Nav extends Widget
     /**
      * Renders widget items.
      */
-    public function renderItems()
-    {
+    public function renderItems() {
         $items = [];
         foreach ($this->items as $i => $item) {
             if (isset($item['visible']) && !$item['visible']) {
@@ -141,22 +130,21 @@ class Nav extends Widget
      * @return string the rendering result.
      * @throws InvalidConfigException
      */
-    public function renderItem($item)
-    {
+    public function renderItem($item) {
         if (is_string($item)) {
             return $item;
         }
-        if(isset($item['content'])){
+        if (isset($item['content'])) {
             return Html::tag('li', $item['content'], $item['options']);
         }
         if (!isset($item['label'])) {
             throw new InvalidConfigException("The 'label' option is required.");
         }
-        $label = $this->encodeLabels ? Html::encode($item['label']) : $item['label'];
-        $options = ArrayHelper::getValue($item, 'options', []);
-        $items = ArrayHelper::getValue($item, 'items');
-        $url = ArrayHelper::getValue($item, 'url', '#');
-        $linkOptions = ArrayHelper::getValue($item, 'linkOptions', []);
+        $label        = $this->encodeLabels ? Html::encode($item['label']) : $item['label'];
+        $options      = ArrayHelper::getValue($item, 'options', []);
+        $items        = ArrayHelper::getValue($item, 'items');
+        $url          = ArrayHelper::getValue($item, 'url', '#');
+        $linkOptions  = ArrayHelper::getValue($item, 'linkOptions', []);
         $badgeOptions = ArrayHelper::getValue($item, 'badgeOptions', []);
 
         if (isset($item['active'])) {
@@ -175,11 +163,11 @@ class Nav extends Widget
                     $items = $this->isChildActive($items, $active);
                 }
                 $items = Dropdown::widget([
-                    'items' => $items,
-                    'encodeLabels' => $this->encodeLabels,
+                    'items'         => $items,
+                    'encodeLabels'  => $this->encodeLabels,
                     'clientOptions' => false,
-                    'type' => Dropdown::NAV, 
-                    'view' => $this->getView(),
+                    'type'          => Dropdown::NAV,
+                    'view'          => $this->getView(),
                 ]);
             }
         }
@@ -194,17 +182,16 @@ class Nav extends Widget
             $label .= Html::tag('i', '', ['class' => 'fa fa-angle-left pull-right']);
         }
 
-        return Html::tag('li', Html::a($label, $url) . $items, $options);
+        return Html::tag('li', Html::a($label, $url).$items, $options);
     }
 
     /**
      * Check to see if a child item is active optionally activating the parent.
-     * @param array $items @see items
+     * @param array   $items  @see items
      * @param boolean $active should the parent be active too
      * @return array @see items
      */
-    protected function isChildActive($items, &$active)
-    {
+    protected function isChildActive($items, &$active) {
         foreach ($items as $i => $child) {
             if (ArrayHelper::remove($items[$i], 'active', false) || $this->isItemActive($child)) {
                 Html::addCssClass($items[$i]['options'], 'active');
@@ -226,12 +213,11 @@ class Nav extends Widget
      * @param array $item the menu item to be checked
      * @return boolean whether the menu item is active
      */
-    protected function isItemActive($item)
-    {
+    protected function isItemActive($item) {
         if (isset($item['url']) && is_array($item['url']) && isset($item['url'][0])) {
             $route = $item['url'][0];
             if ($route[0] !== '/' && Yii::$app->controller) {
-                $route = Yii::$app->controller->module->getUniqueId() . '/' . $route;
+                $route = Yii::$app->controller->module->getUniqueId().'/'.$route;
             }
             if (ltrim($route, '/') !== $this->route) {
                 return false;

@@ -1,10 +1,10 @@
 <?php
 namespace yii\adminUi\module;
 
-class Module extends \yii\base\Module
-{
+class Module extends \yii\base\Module {
     public $controllerNamespace = 'yii\adminUi\module\controllers';
-    public function init(){
+
+    public function init() {
         parent::init();
     }
 }

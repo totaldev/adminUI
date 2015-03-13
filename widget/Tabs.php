@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link      http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license   http://www.yiiframework.com/license/
  */
 
 namespace yii\adminUi\widget;
@@ -13,9 +13,7 @@ use yii\helpers\Html;
 
 /**
  * Tabs renders a Tab bootstrap javascript component.
- *
  * For example:
- *
  * ```php
  * echo Tabs::widget([
  *     'items' => [
@@ -46,17 +44,14 @@ use yii\helpers\Html;
  *     ],
  * ]);
  * ```
- *
- * @see http://getbootstrap.com/javascript/#tabs
+ * @see    http://getbootstrap.com/javascript/#tabs
  * @author Antonio Ramirez <amigo.cobos@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
-class Tabs extends Widget
-{
+class Tabs extends Widget {
     /**
      * @var array list of tabs in the tabs widget. Each array element represents a single
      * tab with the following structure:
-     *
      * - label: string, required, the tab header label.
      * - headerOptions: array, optional, the HTML attributes of the tab header.
      * - linkOptions: array, optional, the HTML attributes of the tab header link tags.
@@ -73,9 +68,7 @@ class Tabs extends Widget
     /**
      * @var array list of HTML attributes for the item container tags. This will be overwritten
      * by the "options" set in individual [[items]]. The following special options are recognized:
-     *
      * - tag: string, defaults to "div", the tag name of the item container tags.
-     *
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
     public $itemOptions = [];
@@ -103,19 +96,17 @@ class Tabs extends Widget
     /**
      * Initializes the widget.
      */
-    public function init()
-    {
+    public function init() {
         parent::init();
-        Html::addCssClass($this->options, 'nav ' . $this->navType);
+        Html::addCssClass($this->options, 'nav '.$this->navType);
     }
 
     /**
      * Renders the widget.
      */
-    public function run()
-    {        
-        $content =  $this->renderItems();
-        echo Html::tag('div',$content,['class'=>'nav-tabs-custom']);
+    public function run() {
+        $content = $this->renderItems();
+        echo Html::tag('div', $content, ['class' => 'nav-tabs-custom']);
         $this->registerPlugin('tab');
     }
 
@@ -124,10 +115,9 @@ class Tabs extends Widget
      * @return string the rendering result.
      * @throws InvalidConfigException.
      */
-    protected function renderItems()
-    {
+    protected function renderItems() {
         $headers = [];
-        $panes = [];
+        $panes   = [];
 
         if (!$this->hasActiveTab() && !empty($this->items)) {
             $this->items[0]['active'] = true;
@@ -137,9 +127,9 @@ class Tabs extends Widget
             if (!isset($item['label'])) {
                 throw new InvalidConfigException("The 'label' option is required.");
             }
-            $label = $this->encodeLabels ? Html::encode($item['label']) : $item['label'];
+            $label         = $this->encodeLabels ? Html::encode($item['label']) : $item['label'];
             $headerOptions = array_merge($this->headerOptions, ArrayHelper::getValue($item, 'headerOptions', []));
-            $linkOptions = array_merge($this->linkOptions, ArrayHelper::getValue($item, 'linkOptions', []));
+            $linkOptions   = array_merge($this->linkOptions, ArrayHelper::getValue($item, 'linkOptions', []));
 
             if (isset($item['items'])) {
                 $label .= ' <b class="caret"></b>';
@@ -151,11 +141,12 @@ class Tabs extends Widget
 
                 Html::addCssClass($linkOptions, 'dropdown-toggle');
                 $linkOptions['data-toggle'] = 'dropdown';
-                $header = Html::a($label, "#", $linkOptions) . "\n"
-                    . Dropdown::widget(['items' => $item['items'],'clientOptions' => false, 'view' => $this->getView()]);
+                $header                     = Html::a($label, "#", $linkOptions)."\n"
+                    .Dropdown::widget(['items' => $item['items'], 'clientOptions' => false,
+                                       'view'  => $this->getView()]);
             } elseif (isset($item['content'])) {
-                $options = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
-                $options['id'] = ArrayHelper::getValue($options, 'id', $this->options['id'] . '-tab' . $n);
+                $options       = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
+                $options['id'] = ArrayHelper::getValue($options, 'id', $this->options['id'].'-tab'.$n);
 
                 Html::addCssClass($options, 'tab-pane');
                 if (ArrayHelper::remove($item, 'active')) {
@@ -163,41 +154,42 @@ class Tabs extends Widget
                     Html::addCssClass($headerOptions, 'active');
                 }
                 $linkOptions['data-toggle'] = 'tab';
-                $header = Html::a($label, '#' . $options['id'], $linkOptions);
-                $panes[] = Html::tag('div', $item['content'], $options);
-            }else if(isset($item['nocontent'])){            
-                $options = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
-                $options['id'] = ArrayHelper::getValue($options, 'id', $this->options['id'] . '-tab' . $n);
+                $header                     = Html::a($label, '#'.$options['id'], $linkOptions);
+                $panes[]                    = Html::tag('div', $item['content'], $options);
+            } else {
+                if (isset($item['nocontent'])) {
+                    $options       = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
+                    $options['id'] = ArrayHelper::getValue($options, 'id', $this->options['id'].'-tab'.$n);
 
-                Html::addCssClass($options, 'tab-pane');
-                if (ArrayHelper::remove($item, 'active')) {
-                    Html::addCssClass($options, 'active');
-                    Html::addCssClass($headerOptions, 'active');
+                    Html::addCssClass($options, 'tab-pane');
+                    if (ArrayHelper::remove($item, 'active')) {
+                        Html::addCssClass($options, 'active');
+                        Html::addCssClass($headerOptions, 'active');
+                    }
+
+                    if (isset($item['header'])) {
+                        $header = $item['label'];
+                    } else {
+                        $header = Html::a($label, '#'.$options['id'], $linkOptions);
+                    }
+                } else {
+                    throw new InvalidConfigException("Either the 'content' or 'items' option must be set.");
                 }
-                
-                if(isset($item['header'])){
-                    $header = $item['label'];
-                }else{
-                    $header = Html::a($label, '#' . $options['id'], $linkOptions);
-                }
-            }else {
-                throw new InvalidConfigException("Either the 'content' or 'items' option must be set.");
             }
 
             $headers[] = Html::tag('li', $header, $headerOptions);
         }
 
-        return Html::tag('ul', implode("\n", $headers), $this->options) . "\n"
-        . Html::tag('div', implode("\n", $panes), ['class' => 'tab-content']);
+        return Html::tag('ul', implode("\n", $headers), $this->options)."\n"
+        .Html::tag('div', implode("\n", $panes), ['class' => 'tab-content']);
     }
 
     /**
      * @return boolean if there's active tab defined
      */
-    protected function hasActiveTab()
-    {
+    protected function hasActiveTab() {
         foreach ($this->items as $item) {
-            if (isset($item['active']) && $item['active']===true) {
+            if (isset($item['active']) && $item['active'] === true) {
                 return true;
             }
         }
@@ -213,8 +205,7 @@ class Tabs extends Widget
      * @return boolean whether any of the dropdown items is `active` or not.
      * @throws InvalidConfigException
      */
-    protected function renderDropdown(&$items, &$panes)
-    {
+    protected function renderDropdown(&$items, &$panes) {
         $itemActive = false;
 
         foreach ($items as $n => &$item) {
@@ -234,8 +225,8 @@ class Tabs extends Widget
                 $itemActive = true;
             }
 
-            $options['id'] = ArrayHelper::getValue($options, 'id', $this->options['id'] . '-dd-tab' . $n);
-            $item['url'] = '#' . $options['id'];
+            $options['id']                      = ArrayHelper::getValue($options, 'id', $this->options['id'].'-dd-tab'.$n);
+            $item['url']                        = '#'.$options['id'];
             $item['linkOptions']['data-toggle'] = 'tab';
 
             $panes[] = Html::tag('div', $content, $options);
