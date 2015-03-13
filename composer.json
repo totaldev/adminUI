@@ -11,21 +11,22 @@
 	"type": "yii2-extension",
 	"license": "GPLv2",
 	"support": {
-		"issues": "https://github.com/mithun12000/adminUI/issues?page=1&state=open",
-		"source": "https://github.com/mithun12000/adminUI"
+		"source": "https://github.com/totaldev/adminUI"
 	},
 	"authors": [
 		{
 			"name": "Mithun Mandal",
 			"email": "mithun12000@gmail.com",
 			"homepage": "http://Indiatimes.com"
+		}, {
+			"name": "Kovalenko Vadim"
 		}
 	],
 	"minimum-stability": "dev",
 	"require": {
-		"almasaeed2010/adminlte": ">=2.0.0",
 		"yiisoft/yii2": ">= 2.0.0",
 		"yiisoft/yii2-bootstrap": ">= 2.0.0",
+		"almasaeed2010/adminlte": ">=2.0.0",
 		"bower-asset/font-awesome": "4.2.0",
 		"bower-asset/Ionicons": "1.5.2",
 		"bower-asset/ckeditor": "4.*",

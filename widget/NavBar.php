@@ -80,7 +80,7 @@ class NavBar extends Widget {
         $tag     = ArrayHelper::remove($options, 'tag', 'nav');
         echo Html::beginTag($tag, $options);
         echo $this->renderToggleButton();
-        echo Html::beginTag('div', ['class' => 'navbar-right']);
+        echo Html::beginTag('div', ['class' => 'navbar-custom-menu']);
     }
 
     /**
@@ -103,10 +103,11 @@ class NavBar extends Widget {
         $screenReader .= "<span class=\"icon-bar\"></span>";
         $screenReader .= "<span class=\"icon-bar\"></span>";
 
-        return Html::tag('a', "{$screenReader}", [
-                'class'       => 'navbar-btn sidebar-toggle',
+        return Html::a("{$screenReader}", '#', [
+                'class'       => 'sidebar-toggle',
                 'data-toggle' => 'offcanvas',
-                'role'        => 'button']
+                'role'        => 'button'
+            ]
         );
     }
 }

@@ -16,22 +16,22 @@ class AdminUiBootstrap implements BootstrapInterface {
             ],
         ]);
 
-        $app->set('assetManager', [
-            'class'      => 'yii\web\AssetManager',
-            'bundles'    => [
-                'yii\widgets\ActiveFormAsset' => [
-                    'js'      => [],
-                    'depends' => [
-                        'yii\adminUi\assetsBundle\AdminUiActiveForm',
-                    ],
-                ],
-                'yii\grid\GridViewAsset'      => [
-                    'depends' => [
-                        'backend\assets\AppAsset'
-                    ],
-                ],
-            ],
-            'linkAssets' => true,
-        ]);
+//        $app->set('assetManager', [
+//            'class'      => 'yii\web\AssetManager',
+//            'bundles'    => [
+//                'yii\widgets\ActiveFormAsset' => [
+//                    'js'      => [],
+//                    'depends' => [
+//                        'yii\adminUi\assetsBundle\AdminUiActiveForm',
+//                    ],
+//                ],
+//                'yii\grid\GridViewAsset'      => [
+//                    'depends' => [
+//                        'backend\assets\AppAsset'
+//                    ],
+//                ],
+//            ],
+//            'linkAssets' => true,
+//        ]);
     }
 }

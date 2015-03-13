@@ -1,6 +1,5 @@
 <?php
 use backend\assets\AppAsset;
-use yii\UrlAsset\component\UrlAsset;
 use yii\helpers\Html;
 use yii\adminUi\widget\Header;
 use yii\adminUi\widget\Nav;
@@ -16,9 +15,6 @@ use yii\adminUi\widget\Breadcrumbs;
  * @var string        $content
  */
 AppAsset::register($this);
-$urls = new UrlAsset();
-$urls->registerAll($this);
-$urls->setParams($this);
 $this->beginPage()
 ?><!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -30,66 +26,60 @@ $this->beginPage()
     <?php $this->head() ?>
 </head>
 <body class="skin-blue">
-<?php
-$this->beginBody();
-Header::begin([
-    'brandLabel' => 'My Company',
-    'brandLabel' => Yii::$app->name,
-    'brandUrl'   => Yii::$app->homeUrl,
-    'options'    => [
-        'tag'   => 'header',
-        'class' => 'header',
-    ],
-]);
-NavBar::begin([
-    'options' => [
-        'class' => 'navbar-static-top',
-    ],
-]);
+<div class="wrapper">
+    <?php
+    $this->beginBody();
+    Header::begin([
+        'brandLabel' => Yii::$app->name,
+        'brandUrl'   => Yii::$app->homeUrl,
+        'options'    => [
+            'tag'   => 'header',
+            'class' => 'main-header',
+        ],
+    ]);
+    NavBar::begin([
+        'options' => [
+            'class' => 'navbar navbar-static-top',
+        ],
+    ]);
 
-$menuItems = [];
-if (Yii::$app->user->isGuest) {
-    $menuItems[] = ['content' => NavBarUser::Widget(), 'options' => ['class' => '']];
-} else {
-    $menuItems[] = ['content' => NavBarMessage::Widget(), 'options' => ['class' => 'dropdown messages-menu']];
-    $menuItems[] = ['content' => NavBarNotification::Widget(), 'options' => ['class' => 'dropdown notifications-menu']];
-    $menuItems[] = ['content' => NavBarTask::Widget(), 'options' => ['class' => 'dropdown tasks-menu']];
-    $menuItems[] = ['content' => NavBarUser::Widget(), 'options' => ['class' => 'dropdown user user-menu']];
-}
+    $menuItems = [];
+    if (Yii::$app->user->isGuest) {
+        $menuItems[] = ['content' => NavBarUser::Widget(), 'options' => ['class' => '']];
+    } else {
+        $menuItems[] = ['content' => NavBarMessage::Widget(), 'options' => ['class' => 'dropdown messages-menu']];
+        $menuItems[] = ['content' => NavBarNotification::Widget(), 'options' => ['class' => 'dropdown notifications-menu']];
+        $menuItems[] = ['content' => NavBarTask::Widget(), 'options' => ['class' => 'dropdown tasks-menu']];
+        $menuItems[] = ['content' => NavBarUser::Widget(), 'options' => ['class' => 'dropdown user user-menu']];
+    }
 
-echo Nav::widget([
-    'options' => ['class' => 'nav navbar-nav'],
-    'items'   => $menuItems,
-]);
-NavBar::end();
-Header::end();
-?>
-<div class="wrapper row-offcanvas row-offcanvas-left">
-    <!-- Left side column. contains the logo and sidebar -->
-    <aside class="left-side sidebar-offcanvas">
-        <!-- sidebar: style can be found in sidebar.less -->
+    echo Nav::widget([
+        'options' => ['class' => 'nav navbar-nav'],
+        'items'   => $menuItems,
+    ]);
+    NavBar::end();
+    Header::end();
+    ?>
+
+    <aside class="main-sidebar">
         <section class="sidebar">
-            <!-- Sidebar user panel -->
             <?php
             echo NavBarUser::Widget(['type' => 'sidebar']);
 
+            $menuItems = [Yii::t('app','Main navigation')];
             if (isset(Yii::$app->menu)) {
-                $menuitems = Yii::$app->menu->items;
-            } else {
-                $menuItems = [];
+                $menuItems = Yii::$app->menu->items;
             }
 
             echo Nav::widget([
                 'options' => ['class' => 'sidebar-menu'],
-                'items'   => $menuitems,
+                'items'   => $menuItems,
             ]);
             ?>
         </section>
     </aside>
 
-    <!-- Right side column. Contains the navbar and content of the page -->
     <aside class="right-side">
-        <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
                 <?php echo $this->title; ?>
@@ -109,24 +99,19 @@ Header::end();
                 'links'   => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
         </section>
-
-        <!-- Main content -->
         <section class="content">
             <?= $content ?>
         </section>
-        <!-- /.content -->
+
     </aside>
-    <!-- /.right-side -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="pull-right hidden-xs"><?= Yii::powered() ?></div>
+            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        </div>
+    </footer>
 </div>
-<!-- ./wrapper -->
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
 <?php $this->endBody() ?>
 </body>
 </html>
