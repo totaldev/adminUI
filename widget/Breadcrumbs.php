@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link      http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license   http://www.yiiframework.com/license/
  */
 
 namespace yii\adminUi\widget;
@@ -14,13 +14,11 @@ use yii\helpers\Html;
 
 /**
  * Breadcrumbs displays a list of links indicating the position of the current page in the whole site hierarchy.
- *
  * For example, breadcrumbs like "Home / Sample Post / Edit" means the user is viewing an edit page
  * for the "Sample Post". He can click on "Sample Post" to view that page, or he can click on "Home"
  * to return to the homepage.
- *
- * To use Breadcrumbs, you need to configure its [[links]] property, which specifies the links to be displayed. For example,
- *
+ * To use Breadcrumbs, you need to configure its [[links]] property, which specifies the links to be displayed. For
+ * example,
  * ~~~
  * // $this is the view object currently being used
  * echo Breadcrumbs::widget([
@@ -30,23 +28,19 @@ use yii\helpers\Html;
  *     ],
  * ]);
  * ~~~
- *
  * Because breadcrumbs usually appears in nearly every page of a website, you may consider placing it in a layout view.
  * You can use a view parameter (e.g. `$this->params['breadcrumbs']`) to configure the links in different
  * views. In the layout view, you assign this view parameter to the [[links]] property like the following:
- *
  * ~~~
  * // $this is the view object currently being used
  * echo Breadcrumbs::widget([
  *     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
  * ]);
  * ~~~
- *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
-class Breadcrumbs extends Widget
-{
+class Breadcrumbs extends Widget {
     /**
      * @var string the name of the breadcrumb container tag.
      */
@@ -71,14 +65,12 @@ class Breadcrumbs extends Widget
      * @var array list of links to appear in the breadcrumbs. If this property is empty,
      * the widget will not render anything. Each array element represents a single link in the breadcrumbs
      * with the following structure:
-     *
      * ~~~
      * [
      *     'label' => 'label of the link',  // required
      *     'url' => 'url of the link',      // optional, will be processed by Url::to()
      * ]
      * ~~~
-     *
      * If a link is active, you only need to specify its "label", and instead of writing `['label' => $label]`,
      * you should simply use `$label`.
      */
@@ -97,17 +89,16 @@ class Breadcrumbs extends Widget
     /**
      * Renders the widget.
      */
-    public function run()
-    {
+    public function run() {
         if (empty($this->links)) {
             return;
         }
         $links = [];
         if ($this->homeLink === null) {
             $links[] = $this->renderItem([
-                'label' => Yii::t('yii', 'Home'),
-                'url' => Yii::$app->homeUrl,
-                'options' => ['class'=>'fa fa-dashboard']
+                'label'   => Yii::t('yii', 'Home'),
+                'url'     => Yii::$app->homeUrl,
+                'options' => ['class' => 'fa fa-dashboard']
             ], $this->itemTemplate);
         } elseif ($this->homeLink !== false) {
             $links[] = $this->renderItem($this->homeLink, $this->itemTemplate);
@@ -123,20 +114,21 @@ class Breadcrumbs extends Widget
 
     /**
      * Renders a single breadcrumb item.
-     * @param array $link the link to be rendered. It must contain the "label" element. The "url" element is optional.
-     * @param string $template the template to be used to rendered the link. The token "{link}" will be replaced by the link.
+     * @param array  $link     the link to be rendered. It must contain the "label" element. The "url" element is
+     *                         optional.
+     * @param string $template the template to be used to rendered the link. The token "{link}" will be replaced by the
+     *                         link.
      * @return string the rendering result
      * @throws InvalidConfigException if `$link` does not have "label" element.
      */
-    protected function renderItem($link, $template)
-    {
+    protected function renderItem($link, $template) {
         if (isset($link['label'])) {
             $label = $this->encodeLabels ? Html::encode($link['label']) : $link['label'];
         } else {
             throw new InvalidConfigException('The "label" element is required for each link.');
         }
-        if($link['options']['class']){
-            $label = Html::tag('i', '',$link['options']).$label;
+        if (isset($link['options']['class'])) {
+            $label = Html::tag('i', '', $link['options']).$label;
         }
         if (isset($link['url'])) {
             return strtr($template, ['{link}' => Html::a($label, $link['url'])]);

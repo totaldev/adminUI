@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link      http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license   http://www.yiiframework.com/license/
  */
 
 namespace yii\adminUi\widget;
@@ -14,15 +14,12 @@ use yii\helpers\Html;
 
 /**
  * NavBar renders a navbar HTML component.
- *
  * Any content enclosed between the [[begin()]] and [[end()]] calls of NavBar
  * is treated as the content of the navbar. You may use widgets such as [[Nav]]
  * or [[\yii\widgets\Menu]] to build up such content. For example,
- *
  * ```php
  * use yii\bootstrap\NavBar;
  * use yii\widgets\Menu;
- *
  * NavBar::begin(['brandLabel' => 'NavBar Test']);
  * echo Nav::widget([
  *     'items' => [
@@ -32,31 +29,30 @@ use yii\helpers\Html;
  * ]);
  * NavBar::end();
  * ```
- *
- * @see http://getbootstrap.com/components/#navbar
+ * @see    http://getbootstrap.com/components/#navbar
  * @author Antonio Ramirez <amigo.cobos@gmail.com>
  * @author Alexander Kochetov <creocoder@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
-class NavBarUser extends Widget
-{
+class NavBarUser extends Widget {
     public $type = 'topbar';
+
     /**
      * Renders the widget.
      */
-    public function run(){
+    public function run() {
         if (Yii::$app->user->isGuest) {
             echo $this->render('navbaruser_logout');
-        }else{
-            echo $this->render('navbaruser_login',array('type'=>$this->type));
-        }        
-        AdminUiAsset::register($this->getView());        
+        } else {
+            echo $this->render('navbaruser_login', ['type' => $this->type]);
+        }
+        AdminUiAsset::register($this->getView());
     }
 
     /**
      * Renders collapsible toggle button.
      * @return string the rendering toggle button.
      */
-    protected function getData(){
+    protected function getData() {
     }
 }

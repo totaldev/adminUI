@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link      http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license   http://www.yiiframework.com/license/
  */
 
 namespace yii\adminUi\widget;
@@ -11,38 +11,33 @@ use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\adminUi\assetsBundle\AdminUiAsset;
+
 /**
  * Progress renders a bootstrap progress bar component.
- *
  * For example,
- *
  * ```php
  * // default with label
  * echo Progress::widget([
  *     'percent' => 60,
  *     'label' => 'test',
  * ]);
- *
  * // styled
  * echo Progress::widget([
  *     'percent' => 65,
  *     'barOptions' => ['class' => 'progress-bar-danger']
  * ]);
- *
  * // striped
  * echo Progress::widget([
  *     'percent' => 70,
  *     'barOptions' => ['class' => 'progress-bar-warning'],
  *     'options' => ['class' => 'progress-striped']
  * ]);
- *
  * // striped animated
  * echo Progress::widget([
  *     'percent' => 70,
  *     'barOptions' => ['class' => 'progress-bar-success'],
  *     'options' => ['class' => 'active progress-striped']
  * ]);
- *
  * // stacked bars
  * echo Progress::widget([
  *     'bars' => [
@@ -52,18 +47,17 @@ use yii\adminUi\assetsBundle\AdminUiAsset;
  *     ]
  * ]);
  * ```
- * @see http://getbootstrap.com/components/#progress
+ * @see    http://getbootstrap.com/components/#progress
  * @author Antonio Ramirez <amigo.cobos@gmail.com>
  * @author Alexander Makarov <sam@rmcreative.ru>
- * @since 2.0
+ * @since  2.0
  */
-class Progress extends Widget
-{
+class Progress extends Widget {
     const HORIZONTAL = 1;
     const VERTICLE = 2;
-    
+
     const DEFAULT_ORIENTATION = 1;
-        
+
     /**
      * @var string the button label.
      */
@@ -85,7 +79,6 @@ class Progress extends Widget
     /**
      * @var array a set of bars that are stacked together to form a single progress bar.
      * Each bar is an array of the following structure:
-     *
      * ```php
      * [
      *     // required, the amount of progress as a percentage.
@@ -103,11 +96,10 @@ class Progress extends Widget
      * Initializes the widget.
      * If you override this method, make sure you call the parent implementation first.
      */
-    public function init()
-    {
+    public function init() {
         parent::init();
         Html::addCssClass($this->options, 'progress');
-        if($this->orientation == self::VERTICLE){
+        if ($this->orientation == self::VERTICLE) {
             Html::addCssClass($this->options, 'vertical');
         }
     }
@@ -115,11 +107,10 @@ class Progress extends Widget
     /**
      * Renders the widget.
      */
-    public function run()
-    {
-        echo Html::beginTag('div', $this->options) . "\n";
-        echo $this->renderProgress() . "\n";
-        echo Html::endTag('div') . "\n";
+    public function run() {
+        echo Html::beginTag('div', $this->options)."\n";
+        echo $this->renderProgress()."\n";
+        echo Html::endTag('div')."\n";
         AdminUiAsset::register($this->getView());
     }
 
@@ -128,8 +119,7 @@ class Progress extends Widget
      * @return string the rendering result.
      * @throws InvalidConfigException if the "percent" option is not set in a stacked progress bar.
      */
-    protected function renderProgress()
-    {
+    protected function renderProgress() {
         if (empty($this->bars)) {
             return $this->renderBar($this->percent, $this->label, $this->barOptions);
         }
@@ -140,7 +130,7 @@ class Progress extends Widget
                 throw new InvalidConfigException("The 'percent' option is required.");
             }
             $options = ArrayHelper::getValue($bar, 'options', []);
-            $bars[] = $this->renderBar($bar['percent'], $label, $options);
+            $bars[]  = $this->renderBar($bar['percent'], $label, $options);
         }
 
         return implode("\n", $bars);
@@ -149,20 +139,19 @@ class Progress extends Widget
     /**
      * Generates a bar
      * @param integer $percent the percentage of the bar
-     * @param string $label, optional, the label to display at the bar
-     * @param array $options the HTML attributes of the bar
+     * @param string  $label   , optional, the label to display at the bar
+     * @param array   $options the HTML attributes of the bar
      * @return string the rendering result.
      */
-    protected function renderBar($percent, $label = '', $options = [])
-    {
+    protected function renderBar($percent, $label = '', $options = []) {
         $defaultOptions = [
-            'role' => 'progressbar',
+            'role'          => 'progressbar',
             'aria-valuenow' => $percent,
             'aria-valuemin' => 0,
             'aria-valuemax' => 100,
-            'style' => ($this->orientation == self::HORIZONTAL)? "width:{$percent}%" : "height:{$percent}%",
+            'style'         => ($this->orientation == self::HORIZONTAL) ? "width:{$percent}%" : "height:{$percent}%",
         ];
-            
+
         $options = array_merge($defaultOptions, $options);
         Html::addCssClass($options, 'progress-bar');
 

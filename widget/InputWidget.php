@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link      http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license   http://www.yiiframework.com/license/
  */
 
 namespace yii\adminUi\widget;
@@ -15,16 +15,13 @@ use yii\web\JsExpression;
 
 /**
  * InputWidget is the base class for widgets that collect user inputs.
- *
  * An input widget can be associated with a data model and an attribute,
  * or a name and a value. If the former, the name and the value will
  * be generated automatically.
- *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
-class InputWidget extends Widget
-{
+class InputWidget extends Widget {
     /**
      * @var Model the data model that this widget is associated with.
      */
@@ -46,20 +43,18 @@ class InputWidget extends Widget
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
     public $options = [];
-    
-    
+
+
     /**
      * @var array the default options for the error tags. The parameter passed to [[error()]] will be
      * merged with this property when rendering the error tag.
      * The following special options are recognized:
-     *
      * - tag: the tag name of the container element. Defaults to "div".
      * - encode: whether to encode the error output. Defaults to true.
-     *
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
     public $errorOptions = ['class' => 'help-block'];
-    
+
     /**
      * @var boolean whether to enable client-side data validation.
      * If not set, it will take the value of [[ActiveForm::enableClientValidation]].
@@ -96,10 +91,8 @@ class InputWidget extends Widget
      * @var array the jQuery selectors for selecting the container, input and error tags.
      * The array keys should be "container", "input", and/or "error", and the array values
      * are the corresponding selectors. For example, `['input' => '#my-input']`.
-     *
      * The container selector is used under the context of the form, while the input and the error
      * selectors are used under the context of the container.
-     *
      * You normally do not need to set this property as the default selectors should work well for most cases.
      */
     public $selectors = [];
@@ -109,8 +102,7 @@ class InputWidget extends Widget
      * Initializes the widget.
      * If you override this method, make sure you call the parent implementation first.
      */
-    public function init()
-    {
+    public function init() {
         if (!$this->hasModel() && $this->name === null) {
             throw new InvalidConfigException("Either 'name', or 'model' and 'attribute' properties must be specified.");
         }
@@ -123,35 +115,33 @@ class InputWidget extends Widget
     /**
      * @return boolean whether this widget is associated with a data model.
      */
-    protected function hasModel($model=false)
-    {
-        if($model){
+    protected function hasModel($model = false) {
+        if ($model) {
             return $model instanceof Model && $this->attribute !== null;
-        }else{
+        } else {
             return $this->model instanceof Model && $this->attribute !== null;
         }
     }
-    
+
     /**
      * Generates an input
      */
-    protected function getInput($type, $list = false,$armodel=false)
-    {
-        if(!$armodel){
+    protected function getInput($type, $list = false, $armodel = false) {
+        if (!$armodel) {
             $armodel = $this->model;
         }
         if ($this->hasModel($armodel)) {
-            $input = 'active' . ucfirst($type);
-            $this->options = ($this->name) ? array_merge($this->options,['name'=>  $this->name]) : $this->options;
+            $input         = 'active'.ucfirst($type);
+            $this->options = ($this->name) ? array_merge($this->options, ['name' => $this->name]) : $this->options;
             return $list ?
                 Html::$input($armodel, $this->attribute, $this->data, $this->options) :
                 Html::$input($armodel, $this->attribute, $this->options);
         }
-        $input = $type;
+        $input   = $type;
         $checked = false;
         if ($type == 'radio' || $type == 'checkbox') {
             $this->options['value'] = $this->value;
-            $checked = ArrayHelper::remove($this->options, 'checked', false);
+            $checked                = ArrayHelper::remove($this->options, 'checked', false);
         }
         return $list ?
             Html::$input($this->name, $this->value, $this->data, $this->options) :
@@ -159,20 +149,19 @@ class InputWidget extends Widget
                 Html::$input($this->name, $checked, $this->options) :
                 Html::$input($this->name, $this->value, $this->options));
     }
-    
+
     /**
      * Returns the JS options for the field.
      * @return array the JS options
      */
-    protected function getClientOptions()
-    {
+    protected function getClientOptions() {
         $attribute = Html::getAttributeName($this->attribute);
         if (!in_array($attribute, $this->model->activeAttributes(), true)) {
             return [];
         }
 
         $enableClientValidation = $this->enableClientValidation || $this->enableClientValidation === null && $this->form->enableClientValidation;
-        $enableAjaxValidation = $this->enableAjaxValidation || $this->enableAjaxValidation === null && $this->form->enableAjaxValidation;
+        $enableAjaxValidation   = $this->enableAjaxValidation || $this->enableAjaxValidation === null && $this->form->enableAjaxValidation;
 
         if ($enableClientValidation) {
             $validators = [];
@@ -194,16 +183,16 @@ class InputWidget extends Widget
 
         $options = [];
 
-        $inputID = Html::getInputId($this->model, $this->attribute);
-        $options['id'] = $inputID;
+        $inputID         = Html::getInputId($this->model, $this->attribute);
+        $options['id']   = $inputID;
         $options['name'] = $this->attribute;
 
         $options['container'] = isset($this->selectors['container']) ? $this->selectors['container'] : ".field-$inputID";
-        $options['input'] = isset($this->selectors['input']) ? $this->selectors['input'] : "#$inputID";
+        $options['input']     = isset($this->selectors['input']) ? $this->selectors['input'] : "#$inputID";
         if (isset($this->selectors['error'])) {
             $options['error'] = $this->selectors['error'];
         } elseif (isset($this->errorOptions['class'])) {
-            $options['error'] = '.' . implode('.', preg_split('/\s+/', $this->errorOptions['class'], -1, PREG_SPLIT_NO_EMPTY));
+            $options['error'] = '.'.implode('.', preg_split('/\s+/', $this->errorOptions['class'], -1, PREG_SPLIT_NO_EMPTY));
         } else {
             $options['error'] = isset($this->errorOptions['tag']) ? $this->errorOptions['tag'] : 'span';
         }
@@ -217,17 +206,17 @@ class InputWidget extends Widget
         }
 
         if (!empty($validators)) {
-            $options['validate'] = new JsExpression("function (attribute, value, messages, deferred) {" . implode('', $validators) . '}');
+            $options['validate'] = new JsExpression("function (attribute, value, messages, deferred) {".implode('', $validators).'}');
         }
 
         // only get the options that are different from the default ones (set in yii.activeForm.js)
         return array_diff_assoc($options, [
             'validateOnChange' => true,
-            'validateOnBlur' => true,
-            'validateOnType' => false,
-            'validationDelay' => 500,
-            'encodeError' => true,
-            'error' => '.help-block',
+            'validateOnBlur'   => true,
+            'validateOnType'   => false,
+            'validationDelay'  => 500,
+            'encodeError'      => true,
+            'error'            => '.help-block',
         ]);
     }
 }

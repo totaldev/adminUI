@@ -1,19 +1,18 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link      http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license   http://www.yiiframework.com/license/
  */
 
 namespace yii\adminUi\widget;
+
 use yii;
 use yii\helpers\Html;
 
 /**
  * ButtonDropdown renders a group or split button dropdown bootstrap component.
- *
  * For example,
- *
  * ```php
  * // a button group using Dropdown widget
  * echo ButtonDropdown::widget([
@@ -26,13 +25,12 @@ use yii\helpers\Html;
  *     ],
  * ]);
  * ```
- * @see http://getbootstrap.com/javascript/#buttons
- * @see http://getbootstrap.com/components/#btn-dropdowns
+ * @see    http://getbootstrap.com/javascript/#buttons
+ * @see    http://getbootstrap.com/components/#btn-dropdowns
  * @author Antonio Ramirez <amigo.cobos@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
-class ButtonDropdown extends Widget
-{
+class ButtonDropdown extends Widget {
     /**
      * @var string the button label
      */
@@ -50,12 +48,12 @@ class ButtonDropdown extends Widget
      * @var boolean whether to display a group of split-styled button group.
      */
     public $split = false;
-    
+
     /**
      * @var boolean whether to display a group of split-styled button group.
      */
     public $group = false;
-    
+
     /**
      * @var string the tag to use to render the button
      */
@@ -68,42 +66,42 @@ class ButtonDropdown extends Widget
     /**
      * Renders the widget.
      */
-    public function run()
-    {
+    public function run() {
         if ($this->split) {
-            echo $this->renderGroup($this->renderButton() . "\n" . $this->renderDropdown());
-        }else if($this->group){
-            echo $this->renderGroup($this->renderButton() . "\n" . $this->renderDropdown());
-        }else{
-            echo $this->renderButton() . "\n" . $this->renderDropdown();
+            echo $this->renderGroup($this->renderButton()."\n".$this->renderDropdown());
+        } else {
+            if ($this->group) {
+                echo $this->renderGroup($this->renderButton()."\n".$this->renderDropdown());
+            } else {
+                echo $this->renderButton()."\n".$this->renderDropdown();
+            }
         }
         $this->registerPlugin('button');
     }
-    
+
     protected function renderGroup($content) {
-        echo Html::tag('div', $content, ['class' =>'btn-group']);
+        echo Html::tag('div', $content, ['class' => 'btn-group']);
     }
 
     /**
      * Generates the button dropdown.
      * @return string the rendering result.
      */
-    protected function renderButton()
-    {
+    protected function renderButton() {
         Html::addCssClass($this->options, 'btn');
         $label = $this->label;
         if ($this->encodeLabel) {
             $label = Html::encode($label);
         }
         if ($this->split) {
-            $options = $this->options;
+            $options                      = $this->options;
             $this->options['data-toggle'] = 'dropdown';
             Html::addCssClass($this->options, 'dropdown-toggle');
             $splitButton = Button::widget([
-                'label' => '<span class="caret"></span>',
+                'label'       => '<span class="caret"></span>',
                 'encodeLabel' => false,
-                'options' => $this->options,
-                'view' => $this->getView(),
+                'options'     => $this->options,
+                'view'        => $this->getView(),
             ]);
         } else {
             $label .= ' <span class="caret"></span>';
@@ -113,27 +111,26 @@ class ButtonDropdown extends Widget
             }
             Html::addCssClass($options, 'dropdown-toggle');
             $options['data-toggle'] = 'dropdown';
-            $splitButton = '';
+            $splitButton            = '';
         }
 
         return Button::widget([
-            'tagName' => $this->tagName,
-            'label' => $label,
-            'options' => $options,
+            'tagName'     => $this->tagName,
+            'label'       => $label,
+            'options'     => $options,
             'encodeLabel' => false,
-            'view' => $this->getView(),
-        ]) . "\n" . $splitButton;
+            'view'        => $this->getView(),
+        ])."\n".$splitButton;
     }
 
     /**
      * Generates the dropdown menu.
      * @return string the rendering result.
      */
-    protected function renderDropdown()
-    {
-        $config = $this->dropdown;
+    protected function renderDropdown() {
+        $config                  = $this->dropdown;
         $config['clientOptions'] = false;
-        $config['view'] = $this->getView();
+        $config['view']          = $this->getView();
 
         return Dropdown::widget($config);
     }
