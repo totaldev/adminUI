@@ -15,10 +15,6 @@ use yii\base\Event;
 class AdminUiBootstrap implements BootstrapInterface {
 
     public function bootstrap($app) {
-        \Yii::$classMap = array_merge(\Yii::$classMap, [
-            'yii\grid\CheckboxColumn' => '@yii/adminUi/widget/CheckboxColumn.php',
-            'yii\grid\ActionColumn'   => '@yii/adminUi/widget/ActionColumn.php',
-        ]);
         $app->set('view', [
             'class' => 'yii\web\View',
             'theme' => [
