@@ -17,7 +17,7 @@ if ($type == 'topbar') {
 
             <p>
                 <?= Yii::$app->user->identity->firstname ?> - <?= Yii::$app->user->identity->groupName ?>
-                <small><?php echo (Yii::$app->user->identity->createdOn) ? 'Member since '.date('M. Y', strtotime(Yii::$app->user->identity->createdOn)) : '';?></small>
+                <small><?php echo (Yii::$app->user->identity->createdAt) ? 'Member since '.date('M. Y', strtotime(Yii::$app->user->identity->createdAt)) : '';?></small>
             </p>
         </li>
         <?php /*/?>
