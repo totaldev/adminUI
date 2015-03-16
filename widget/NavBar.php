@@ -8,7 +8,9 @@
 namespace yii\adminUi\widget;
 
 use Yii;
+use yii\adminUi\widget\WidgetTrait;
 use yii\adminUi\assetsBundle\AdminUiAsset as AdminUiAsset;
+use yii\bootstrap\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
@@ -35,6 +37,9 @@ use yii\helpers\Html;
  * @since  2.0
  */
 class NavBar extends Widget {
+
+    use WidgetTrait;
+
     /**
      * @var array the HTML attributes for the widget container tag. The following special options are recognized:
      * - tag: string, defaults to "nav", the name of the container tag.

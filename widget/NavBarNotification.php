@@ -9,6 +9,7 @@ namespace yii\adminUi\widget;
 
 use Yii;
 use yii\adminUi\assetsBundle\AdminUiAsset as AdminUiAsset;
+use yii\bootstrap\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
@@ -35,6 +36,9 @@ use yii\helpers\Html;
  * @since  2.0
  */
 class NavBarNotification extends Widget {
+
+    use WidgetTrait;
+
     /**
      * Renders the widget.
      */

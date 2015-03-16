@@ -8,6 +8,7 @@
 namespace yii\adminUi\widget;
 
 use yii\base\InvalidConfigException;
+use yii\bootstrap\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
@@ -18,6 +19,9 @@ use yii\helpers\Html;
  * @since  2.0
  */
 class Dropdown extends Widget {
+
+    use WidgetTrait;
+
     const NAV = 1;
     const DROPDOWN = 2;
 

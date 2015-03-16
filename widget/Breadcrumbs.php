@@ -10,6 +10,7 @@ namespace yii\adminUi\widget;
 use Yii;
 //use yii\widgets\Breadcrumbs;
 use yii\base\InvalidConfigException;
+use yii\bootstrap\Widget;
 use yii\helpers\Html;
 
 /**
@@ -41,6 +42,9 @@ use yii\helpers\Html;
  * @since  2.0
  */
 class Breadcrumbs extends Widget {
+
+    use WidgetTrait;
+
     /**
      * @var string the name of the breadcrumb container tag.
      */

@@ -79,7 +79,7 @@ $this->beginPage()
         </section>
     </aside>
 
-    <aside class="right-side">
+    <div class="content-wrapper">
         <section class="content-header">
             <h1>
                 <?php echo $this->title; ?>
@@ -103,12 +103,10 @@ $this->beginPage()
             <?= $content ?>
         </section>
 
-    </aside>
+    </div>
     <footer class="main-footer">
-        <div class="container">
-            <div class="pull-right hidden-xs"><?= Yii::powered() ?></div>
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-        </div>
+        <div class="pull-right hidden-xs"><?= Yii::powered() ?></div>
+        <p>&copy; My Company <?= date('Y') ?></p>
     </footer>
 </div>
 
