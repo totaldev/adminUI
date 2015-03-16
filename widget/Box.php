@@ -12,7 +12,10 @@ use yii;
  * @author Mithun Mandal <mithun12000@gmail.com>
  * @since  2.0
  */
-class Box extends Widget {
+class Box extends yii\bootstrap\Widget {
+
+    use WidgetTrait;
+
     const TYPE_SOLID = "box-solid";
     const TYPE_DANGER = "box-danger";
     const TYPE_INFO = "box-info";
@@ -29,7 +32,7 @@ class Box extends Widget {
      */
     public $header;
 
-    public $headeroption = [];
+    public $headerOptions = [];
 
 
     public $template = '{collapse} {remove}';
@@ -39,10 +42,13 @@ class Box extends Widget {
     public $usebutton = false;
     public $usebuttonPosition = self::POSITION_HEADER;
 
-    public $buttonoption = [];
+    public $buttonoption = [
+        'class' => null
+    ];
 
-    public $bodytoption = [];
-
+    public $bodytoption = [
+        'class' => null
+    ];
 
     public $headerIcon;
 
@@ -99,7 +105,11 @@ class Box extends Widget {
                 $content .= Html::tag('i', '', ['class' => $this->headerIcon]);
             }
 
-            $content .= Html::tag('h3', "\n".$this->header."\n", ['class' => 'box-title']);
+            if(is_array($this->header)) {
+                $content .= Html::tag('h3', "\n".implode(' ', $this->header)."\n", ['class' => 'box-title']);
+            } else {
+                $content .= Html::tag('h3', "\n".$this->header."\n", ['class' => 'box-title']);
+            }
 
             if ($this->headerButton !== null) {
                 $content .= Html::tag('div', $this->headerButton, ['class' => ($this->headerButtonGroup) ? 'pull-right box-tools btn-group' : 'pull-right box-tools']);
@@ -109,7 +119,7 @@ class Box extends Widget {
                 $content .= $this->renderButton(self::POSITION_HEADER);
             }
 
-            return Html::tag('div', $content, array_merge(['class' => 'box-header'], $this->headeroption));
+            return Html::tag('div', $content, array_merge(['class' => 'box-header'], $this->headerOptions));
         } else {
             return null;
         }
@@ -194,7 +204,7 @@ class Box extends Widget {
     /**
      * @inheritdoc
      */
-    protected function rendertemplate($option) {
+    protected function renderTemplate($option) {
         return preg_replace_callback('/\\{([\w\-\/]+)\\}/', function ($matches) use ($option) {
             $name = $matches[1];
             if (isset($this->buttons[$name])) {
@@ -207,7 +217,7 @@ class Box extends Widget {
 
     protected function renderButton($position) {
         if ($this->usebuttonPosition == $position) {
-            $btns = $this->rendertemplate($this->buttonoption);
+            $btns = $this->renderTemplate($this->buttonoption);
             return Html::tag('div', $btns, ['class' => 'pull-right box-tools']);
         } else {
             return '';
