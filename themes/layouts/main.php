@@ -74,6 +74,7 @@ $this->beginPage()
             echo Nav::widget([
                 'options' => ['class' => 'sidebar-menu'],
                 'items'   => $menuItems,
+                'activateParents' => true
             ]);
             ?>
         </section>
