@@ -30,7 +30,7 @@ trait WidgetTrait {
      * Registers a specific Bootstrap plugin and the related events
      * @param string $name the name of the Bootstrap plugin
      */
-    protected function registerPlugin($name) {
+    protected function registerPlugin($name, $element = null, $callback = null, $callbackCon = null) {
         $id   = $this->options['id'];
         $view = $this->getView();
 
