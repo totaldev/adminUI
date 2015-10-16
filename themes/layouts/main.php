@@ -1,14 +1,14 @@
 <?php
 use backend\assets\AppAsset;
 use yii\helpers\Html;
-use yii\adminUi\widget\Header;
-use yii\adminUi\widget\Nav;
-use yii\adminUi\widget\NavBar;
-use yii\adminUi\widget\NavBarUser;
-use yii\adminUi\widget\NavBarMessage;
-use yii\adminUi\widget\NavBarNotification;
-use yii\adminUi\widget\NavBarTask;
-use yii\adminUi\widget\Breadcrumbs;
+use yii\adminUi\widgets\Header;
+use yii\adminUi\widgets\Nav;
+use yii\adminUi\widgets\NavBar;
+use yii\adminUi\widgets\NavBarUser;
+use yii\adminUi\widgets\NavBarMessage;
+use yii\adminUi\widgets\NavBarNotification;
+use yii\adminUi\widgets\NavBarTask;
+use yii\adminUi\widgets\Breadcrumbs;
 
 /**
  * @var \yii\web\View $this
@@ -63,17 +63,15 @@ $this->beginPage()
 
     <aside class="main-sidebar">
         <section class="sidebar">
-            <?php
-            echo NavBarUser::Widget(['type' => 'sidebar']);
-
-            $menuItems = [Yii::t('app','Main navigation')];
-            if (isset(Yii::$app->menu)) {
-                $menuItems = Yii::$app->menu->items;
-            }
-
-            echo Nav::widget([
-                'options' => ['class' => 'sidebar-menu'],
-                'items'   => $menuItems,
+            <?=Nav::widget([
+                'header' => mb_convert_case(Yii::t('app', 'Main navigation'), MB_CASE_UPPER),
+                'headerOptions' => [
+                    'class' => 'header'
+                ],
+                'options' => [
+                    'class' => 'sidebar-menu'
+                ],
+                'items' => isset(Yii::$app->menu) ? Yii::$app->menu : [],
                 'activateParents' => true
             ]);
             ?>
@@ -89,7 +87,7 @@ $this->beginPage()
                     if (isset($this->params['pagelabel'])) {
                         echo $this->params['pagelabel'];
                     } else { ?>
-                        Control panel
+                        <?=Yii::t('app', 'Control panel')?>
                     <?php } ?>
                 </small>
             </h1>
